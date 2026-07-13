@@ -1,8 +1,13 @@
 package com.govind.Ecommerce_DAL.service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,29 +25,48 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class OrderService {
 
-	private OrderRepository odrRepo;
-	private UserRepository usrRepo;
-	private ProductRepository proRepo;
+	private OrderRepository orderRepo;
+	private UserRepository userRepo;
+	private ProductRepository productRepo;
+
+	// INSERT
 
 	@Transactional
-	public Long createOrder(Long customerId, Map<Long, Integer> productQuantities) {
-		User customer = usrRepo.findById(customerId).orElseThrow(() -> new RuntimeException("Customer not Found"));
+	public Long createOrder(Long userId, Map<Long, Integer> productQuantities) {
+		User user = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not Found"));
 
 		Order order = new Order();
-		order.setCustomer(customer);
+		order.setUser(user);
 		order.setOrderDate(new Date());
+
+		List<OrderItem> items = new ArrayList<>();
+
 		for (Map.Entry<Long, Integer> entry : productQuantities.entrySet()) {
-			Product product = proRepo.findById(entry.getKey())
+
+			Product product = productRepo.findById(entry.getKey())
 					.orElseThrow(() -> new RuntimeException("Product not found"));
+
 			OrderItem item = new OrderItem();
+
+			item.setOrder(order);
 			item.setProduct(product);
 			item.setQuantity(entry.getValue());
 			item.setPrice(product.getPrice());
-			order.addOrderItem(item);
+
+			items.add(item);
 		}
 
-		Order savedOrder = odrRepo.save(order);
-		return savedOrder.getId();
+		order.setOrderItems(items);
+
+		return orderRepo.save(order).getId();
+
+	}
+
+	// READ
+	public Page<Order> readAll(int page, int size) {
+		Pageable pageable = PageRequest.of(page, size);
+
+		return orderRepo.findAll(pageable);
 	}
 
 }

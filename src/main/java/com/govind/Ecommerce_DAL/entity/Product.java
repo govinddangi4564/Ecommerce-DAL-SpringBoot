@@ -8,7 +8,7 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -17,7 +17,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -46,18 +45,17 @@ public class Product {
 	@Column(nullable = false)
 	private BigDecimal price;
 
-	private int stockQuantity;
+	private Integer stockQuantity;
 
 	@Column(nullable = false)
 	private boolean active = true;
 
-	@JsonBackReference(value = "category-product")
+	@JsonBackReference
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "category_id")
 	private Category category;
 
-	@com.fasterxml.jackson.annotation.JsonIgnore
-	@ManyToMany
-	@JoinTable(name = "cart_products", joinColumns = @JoinColumn(name = "product_id"), inverseJoinColumns = @JoinColumn(name = "cart_id"))
+	@ManyToMany(mappedBy = "products")
+	@JsonIgnore
 	private List<Cart> carts = new ArrayList<>();
 }

@@ -1,5 +1,8 @@
 package com.govind.Ecommerce_DAL.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.govind.Ecommerce_DAL.entity.Category;
@@ -13,14 +16,23 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class ProductService {
 
-	private ProductRepository proRepo;
+	private ProductRepository productRepo;
 
-	private CategoryRepository catRepo;
+	private CategoryRepository categoryRepo;
 
-	public Product addProduct(Long categoryId, Product pro) {
-		Category cat = catRepo.findById(categoryId).orElseThrow(() -> new RuntimeException("Category not found."));
-		cat.addProduct(pro);
+	// INSERT
+	public Product addProduct(Long categoryId, Product product) {
+		Category category = categoryRepo.findById(categoryId)
+				.orElseThrow(() -> new RuntimeException("Category not found."));
 
-		return proRepo.save(pro);
+		product.setCategory(category);
+
+		return productRepo.save(product);
+	}
+
+	// READ
+	public Page<Product> readAll(int page, int size) {
+		Pageable pageable = PageRequest.of(page, size);
+		return productRepo.findAll(pageable);
 	}
 }

@@ -32,17 +32,8 @@ public class Category {
 	@Column(nullable = false, unique = true)
 	private String name;
 
-	@JsonManagedReference(value = "category-product")
+	@JsonManagedReference
 	@OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Product> products = new ArrayList<>();
 
-	public void addProduct(Product product) {
-		products.add(product);
-		product.setCategory(this);
-	}
-
-	public void removeProduct(Product product) {
-		products.remove(product);
-		product.setCategory(null);
-	}
 }

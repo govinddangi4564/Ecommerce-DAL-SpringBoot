@@ -1,13 +1,16 @@
 package com.govind.Ecommerce_DAL.controller;
 
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.govind.Ecommerce_DAL.dto.ProductDTO;
+import com.govind.Ecommerce_DAL.dto.ProductRequest;
 import com.govind.Ecommerce_DAL.entity.Product;
 import com.govind.Ecommerce_DAL.service.ProductService;
 
@@ -21,12 +24,21 @@ public class ProductController {
 	private ProductService productService;
 
 	@PostMapping
-	public ResponseEntity<Product> addProduct(@RequestBody ProductDTO productDto) {
+	public ResponseEntity<Product> addProduct(@RequestBody ProductRequest dto) {
 		Product product = new Product();
-		product.setName(productDto.getName());
-		product.setDescription(productDto.getDescription());
-		product.setPrice(productDto.getPrice());
-		product.setStockQuantity(productDto.getStockQuantity());
-		return ResponseEntity.status(HttpStatus.CREATED).body(productService.addProduct(productDto.getCategoryId(), product));
+
+		product.setName(dto.name());
+		product.setDescription(dto.description());
+		product.setPrice(dto.price());
+		product.setStockQuantity(dto.stockQuantity());
+
+		return ResponseEntity.status(HttpStatus.CREATED).body(productService.addProduct(dto.categoryId(), product));
+	}
+
+	@GetMapping
+	public Page<Product> readAll(@RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "10") int size) {
+
+		return productService.readAll(page, size);
 	}
 }

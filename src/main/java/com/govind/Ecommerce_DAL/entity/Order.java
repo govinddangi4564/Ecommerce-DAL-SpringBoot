@@ -7,7 +7,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -33,24 +32,13 @@ public class Order {
 	private Long id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id", nullable = false)
-	private User customer;
+	@JoinColumn(name = "user_id")
+	private User user;
 
-	@Column(nullable = false)
 	private Date orderDate;
 
-	@JsonManagedReference(value = "order-orderitem")
-	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonManagedReference
+	@OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
 	private List<OrderItem> orderItems = new ArrayList<>();
-
-	public void addOrderItem(OrderItem item) {
-		orderItems.add(item);
-		item.setOrder(this);
-	}
-
-	public void removeOrderItem(OrderItem item) {
-		orderItems.remove(item);
-		item.setOrder(null);
-	}
 
 }

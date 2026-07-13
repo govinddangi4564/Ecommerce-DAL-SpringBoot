@@ -10,30 +10,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.govind.Ecommerce_DAL.dto.OrderRequest;
-import com.govind.Ecommerce_DAL.entity.Order;
-import com.govind.Ecommerce_DAL.service.OrderService;
+import com.govind.Ecommerce_DAL.dto.CartRequest;
+import com.govind.Ecommerce_DAL.entity.Cart;
+import com.govind.Ecommerce_DAL.service.CartService;
 
 import lombok.AllArgsConstructor;
 
 @RestController
+@RequestMapping("/carts")
 @AllArgsConstructor
-@RequestMapping("/orders")
-public class OrderController {
+public class CartController {
 
-	private OrderService orderService;
+	private CartService cartService;
 
 	@PostMapping
-	public ResponseEntity<Long> createOrder(@RequestBody OrderRequest orderRequest) {
-		Long orderId = orderService.createOrder(orderRequest.userId(), orderRequest.productQuantities());
-
-		return ResponseEntity.status(HttpStatus.CREATED).body(orderId);
+	public ResponseEntity<Cart> createCart(@RequestBody CartRequest dto) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(cartService.createCart(dto.userId(), dto.productIds()));
 	}
 
 	@GetMapping
-	public Page<Order> readAll(@RequestParam(defaultValue = "0") int page,
-			@RequestParam(defaultValue = "10") int size) {
+	public Page<Cart> readAll(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
 
-		return orderService.readAll(page, size);
+		return cartService.viewCart(page, size);
 	}
 }

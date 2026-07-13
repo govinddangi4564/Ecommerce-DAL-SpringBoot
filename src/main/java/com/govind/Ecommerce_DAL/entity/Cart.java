@@ -3,14 +3,13 @@ package com.govind.Ecommerce_DAL.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -33,7 +32,7 @@ public class Cart {
 	@JoinColumn(name = "user_id")
 	private User user;
 
-	@com.fasterxml.jackson.annotation.JsonIgnore
-	@ManyToMany(mappedBy = "carts")
+	@ManyToMany
+	@JoinTable(name = "cart_products", joinColumns = @JoinColumn(name = "cart_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
 	private List<Product> products = new ArrayList<>();
 }
