@@ -2,6 +2,8 @@ package com.govind.Ecommerce_DAL.service;
 
 import java.util.List;
 
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -48,5 +50,16 @@ public class CartService {
 	}
 
 	// DELETE
+	@CacheEvict(value = "Cart", key = "#id")
+	public void deleteCart(Long id) {
+		Cart c = cartRepo.findById(id).orElseThrow(() -> new ResourceNotFound("Cart not found"));
+		cartRepo.delete(c);
+	}
+
+	// Find By Id
+	@Cacheable(value = "Cart", key = "#id")
+	public Cart findById(Long id) {
+		return cartRepo.findById(id).orElseThrow(() -> new ResourceNotFound("User not found"));
+	}
 
 }

@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -57,7 +59,7 @@ public class OrderService {
 			items.add(item);
 		}
 
-		order.setOrderItems(items);
+		order.getOrderItems().stream().filter(item -> item.getProduct() != null).toList();
 
 		return orderRepo.save(order).getId();
 
@@ -68,6 +70,19 @@ public class OrderService {
 		Pageable pageable = PageRequest.of(page, size);
 
 		return orderRepo.findAll(pageable);
+	}
+
+	// DELETE
+	@CacheEvict(value = "order", key = "#id")
+	public void deleteOrder(Long id) {
+		Order o = orderRepo.findById(id).orElseThrow(() -> new ResourceNotFound("Order not found."));
+		orderRepo.delete(o);
+	}
+
+	// Find By Id
+	@Cacheable(value = "order", key = "#id")
+	public Order findById(Long id) {
+		return orderRepo.findById(id).orElseThrow(() -> new ResourceNotFound("User not found"));
 	}
 
 }

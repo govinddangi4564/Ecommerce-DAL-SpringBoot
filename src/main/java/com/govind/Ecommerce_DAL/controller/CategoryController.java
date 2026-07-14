@@ -3,7 +3,9 @@ package com.govind.Ecommerce_DAL.controller;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,7 +31,18 @@ public class CategoryController {
 
 	@GetMapping
 	public Page<Category> readAll(@RequestParam(defaultValue = "0") int page,
-			@RequestParam(defaultValue = "10") int size) {
+			@RequestParam(defaultValue = "5") int size) {
 		return categoryService.readAll(page, size);
+	}
+
+	@DeleteMapping("/{id}")
+	public String deleteCategory(@PathVariable Long id) {
+		categoryService.deleteCategory(id);
+		return "Delete Successful";
+	}
+
+	@GetMapping("/{id}")
+	public Category findByid(@PathVariable Long id) {
+		return categoryService.findById(id);
 	}
 }

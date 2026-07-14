@@ -2,6 +2,9 @@ package com.govind.Ecommerce_DAL.entity;
 
 import java.math.BigDecimal;
 
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Entity;
@@ -34,6 +37,7 @@ public class OrderItem {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "product_id")
+	@NotFound(action = NotFoundAction.IGNORE)
 	private Product product;
 
 	private Integer quantity;
