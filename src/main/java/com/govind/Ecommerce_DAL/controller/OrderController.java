@@ -7,12 +7,14 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.govind.Ecommerce_DAL.dto.OrderRequest;
+import com.govind.Ecommerce_DAL.dto.OrderUpdateRequest;
 import com.govind.Ecommerce_DAL.entity.Order;
 import com.govind.Ecommerce_DAL.service.OrderService;
 
@@ -42,6 +44,18 @@ public class OrderController {
 	public String deleteOrder(@PathVariable Long id) {
 		orderService.deleteOrder(id);
 		return "Delete successful";
+	}
+
+	@PutMapping("/{id}")
+	public Order updateOrder(@PathVariable Long id, @RequestBody OrderUpdateRequest dto) {
+		return orderService.updateOrderDetails(id, dto);
+	}
+
+	@GetMapping("/sort")
+	public Page<Order> getUsers(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size,
+			@RequestParam(defaultValue = "id") String field, @RequestParam(defaultValue = "asc") String direction) {
+
+		return orderService.sort(page, size, field, direction);
 	}
 
 	@GetMapping("/{id}")

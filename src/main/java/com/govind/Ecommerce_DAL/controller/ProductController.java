@@ -1,5 +1,7 @@
 package com.govind.Ecommerce_DAL.controller;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -7,12 +9,14 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.govind.Ecommerce_DAL.dto.ProductRequest;
+import com.govind.Ecommerce_DAL.dto.ProductUpdateRequest;
 import com.govind.Ecommerce_DAL.entity.Product;
 import com.govind.Ecommerce_DAL.service.ProductService;
 
@@ -50,9 +54,27 @@ public class ProductController {
 		return "Product successfully deleted.";
 	}
 
+	@PutMapping("/{id}")
+	public Product updateProduct(@PathVariable Long id, @RequestBody ProductUpdateRequest dto) {
+		return productService.updateProduct(id, dto);
+	}
+
+	@GetMapping("/sort")
+	public Page<Product> getUsers(@RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "5") int size, @RequestParam(defaultValue = "id") String field,
+			@RequestParam(defaultValue = "asc") String direction) {
+
+		return productService.sort(page, size, field, direction);
+	}
+
 	@GetMapping("/{id}")
 	public Product findByid(@PathVariable Long id) {
 		return productService.findById(id);
+	}
+
+	@GetMapping("/search")
+	public List<Product> search(@RequestParam String name) {
+		return productService.search(name);
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.govind.Ecommerce_DAL.controller;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,9 +49,30 @@ public class UserController {
 		return userService.updateUser(id, dto);
 	}
 
+	@GetMapping("/sort")
+	public Page<User> getUsers(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size,
+			@RequestParam(defaultValue = "id") String field, @RequestParam(defaultValue = "asc") String direction) {
+
+		return userService.sort(page, size, field, direction);
+	}
+
 	@GetMapping("/{id}")
 	public User findByid(@PathVariable Long id) {
 		return userService.findById(id);
 	}
 
+	@GetMapping("/search")
+	public List<User> search(@RequestParam String query) {
+		return userService.search(query);
+	}
+
+	@GetMapping("/search/username")
+	public User findByUsername(@RequestParam String username) {
+		return userService.findByEmail(username);
+	}
+
+	@GetMapping("/search/email")
+	public User findByEmail(@RequestParam String email) {
+		return userService.findByEmail(email);
+	}
 }

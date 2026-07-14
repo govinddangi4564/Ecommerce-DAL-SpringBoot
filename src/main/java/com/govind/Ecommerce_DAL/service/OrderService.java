@@ -10,10 +10,12 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.govind.Ecommerce_DAL.Exception.ResourceNotFound;
+import com.govind.Ecommerce_DAL.dto.OrderUpdateRequest;
 import com.govind.Ecommerce_DAL.entity.Order;
 import com.govind.Ecommerce_DAL.entity.OrderItem;
 import com.govind.Ecommerce_DAL.entity.Product;
@@ -77,6 +79,24 @@ public class OrderService {
 	public void deleteOrder(Long id) {
 		Order o = orderRepo.findById(id).orElseThrow(() -> new ResourceNotFound("Order not found."));
 		orderRepo.delete(o);
+	}
+
+	// UPDATE
+	public Order updateOrderDetails(Long id, OrderUpdateRequest dto) {
+		Order order = orderRepo.findById(id).orElseThrow(() -> new ResourceNotFound("Order not found."));
+
+		order.getUser().setId(dto.useriId());
+
+		return orderRepo.save(order);
+	}
+
+	// SORT
+	public Page<Order> sort(int page, int size, String field, String direction) {
+		Sort sort = direction.equalsIgnoreCase("desc") ? Sort.by(field).descending() : Sort.by(field).ascending();
+
+		Pageable pageable = PageRequest.of(page, size, sort);
+
+		return orderRepo.findAll(pageable);
 	}
 
 	// Find By Id
