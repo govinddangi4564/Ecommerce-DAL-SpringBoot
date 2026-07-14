@@ -21,35 +21,51 @@ Please refer to the following Entity-Relationship diagram for the database archi
 
 *Note: Ensure that the schema image is named `database_schema.png` and placed in the root of the repository for it to render correctly on GitHub.*
 
+## Live Deployment
+
+The application is deployed live on Render and can be accessed using the following base URL:
+
+**`https://ecommerce-dal.onrender.com`**
+
+### Testing the Live API
+
+You can test the live endpoints directly in your browser or using tools like Postman/cURL. Note that there is no root page (`/`), so you must visit specific endpoints to see data. 
+
+**Example Working Endpoints:**
+- View all Users: [https://ecommerce-dal.onrender.com/users](https://ecommerce-dal.onrender.com/users)
+- View all Products: [https://ecommerce-dal.onrender.com/products](https://ecommerce-dal.onrender.com/products)
+- View all Categories: [https://ecommerce-dal.onrender.com/categories](https://ecommerce-dal.onrender.com/categories)
+- Sort Users: [https://ecommerce-dal.onrender.com/users/sort](https://ecommerce-dal.onrender.com/users/sort)
+
 ## API Endpoints Documentation
 
-Below is the complete list of REST API endpoints exposed by this application. For POST and PUT methods, the required raw JSON request bodies are provided.
+Below is the complete list of REST API endpoints exposed by this application. For POST and PUT methods, the required raw JSON request bodies are provided. All endpoints can be appended to the live base URL above.
 
 ### 1. Users API
 
-Base Path: `/users`
+Base Path: `https://ecommerce-dal.onrender.com/users`
 
-*   **GET** `/users`
+*   **GET** `https://ecommerce-dal.onrender.com/users`
     *   Description: Retrieves a paginated list of users.
     *   Query Parameters: `page` (default: 0), `size` (default: 5)
-*   **GET** `/users/sort`
+*   **GET** `https://ecommerce-dal.onrender.com/users/sort`
     *   Description: Retrieves a sorted and paginated list of users.
     *   Query Parameters: `page` (default: 0), `size` (default: 5), `field` (default: "id"), `direction` (default: "asc")
-*   **GET** `/users/{id}`
+*   **GET** `https://ecommerce-dal.onrender.com/users/{id}`
     *   Description: Retrieves a specific user by their ID.
-*   **GET** `/users/search`
+*   **GET** `https://ecommerce-dal.onrender.com/users/search`
     *   Description: Searches users using a query string.
     *   Query Parameters: `query`
-*   **GET** `/users/search/username`
+*   **GET** `https://ecommerce-dal.onrender.com/users/search/username`
     *   Description: Finds a user by their username.
     *   Query Parameters: `username`
-*   **GET** `/users/search/email`
+*   **GET** `https://ecommerce-dal.onrender.com/users/search/email`
     *   Description: Finds a user by their email.
     *   Query Parameters: `email`
-*   **DELETE** `/users/{id}`
+*   **DELETE** `https://ecommerce-dal.onrender.com/users/{id}`
     *   Description: Deletes a user by their ID.
 
-*   **POST** `/users`
+*   **POST** `https://ecommerce-dal.onrender.com/users`
     *   Description: Creates a new user.
     *   Request Body (Raw JSON):
         ```json
@@ -60,7 +76,7 @@ Base Path: `/users`
         }
         ```
 
-*   **PUT** `/users/{id}`
+*   **PUT** `https://ecommerce-dal.onrender.com/users/{id}`
     *   Description: Updates an existing user's information.
     *   Request Body (Raw JSON):
         ```json
@@ -74,23 +90,23 @@ Base Path: `/users`
 
 ### 2. Categories API
 
-Base Path: `/categories`
+Base Path: `https://ecommerce-dal.onrender.com/categories`
 
-*   **GET** `/categories`
+*   **GET** `https://ecommerce-dal.onrender.com/categories`
     *   Description: Retrieves a paginated list of categories.
     *   Query Parameters: `page` (default: 0), `size` (default: 5)
-*   **GET** `/categories/sort`
+*   **GET** `https://ecommerce-dal.onrender.com/categories/sort`
     *   Description: Retrieves a sorted and paginated list of categories.
     *   Query Parameters: `page` (default: 0), `size` (default: 5), `field` (default: "id"), `direction` (default: "asc")
-*   **GET** `/categories/{id}`
+*   **GET** `https://ecommerce-dal.onrender.com/categories/{id}`
     *   Description: Retrieves a specific category by its ID.
-*   **GET** `/categories/search`
+*   **GET** `https://ecommerce-dal.onrender.com/categories/search`
     *   Description: Searches for a category by its name.
     *   Query Parameters: `name`
-*   **DELETE** `/categories/{id}`
+*   **DELETE** `https://ecommerce-dal.onrender.com/categories/{id}`
     *   Description: Deletes a category by its ID.
 
-*   **POST** `/categories`
+*   **POST** `https://ecommerce-dal.onrender.com/categories`
     *   Description: Creates a new category.
     *   Request Body (Raw JSON):
         ```json
@@ -99,7 +115,7 @@ Base Path: `/categories`
         }
         ```
 
-*   **PUT** `/categories/{id}`
+*   **PUT** `https://ecommerce-dal.onrender.com/categories/{id}`
     *   Description: Updates an existing category.
     *   Request Body (Raw JSON):
         ```json
@@ -110,23 +126,23 @@ Base Path: `/categories`
 
 ### 3. Products API
 
-Base Path: `/products`
+Base Path: `https://ecommerce-dal.onrender.com/products`
 
-*   **GET** `/products`
+*   **GET** `https://ecommerce-dal.onrender.com/products`
     *   Description: Retrieves a paginated list of products.
     *   Query Parameters: `page` (default: 0), `size` (default: 5)
-*   **GET** `/products/sort`
+*   **GET** `https://ecommerce-dal.onrender.com/products/sort`
     *   Description: Retrieves a sorted and paginated list of products.
     *   Query Parameters: `page` (default: 0), `size` (default: 5), `field` (default: "id"), `direction` (default: "asc")
-*   **GET** `/products/{id}`
+*   **GET** `https://ecommerce-dal.onrender.com/products/{id}`
     *   Description: Retrieves a specific product by its ID.
-*   **GET** `/products/search`
+*   **GET** `https://ecommerce-dal.onrender.com/products/search`
     *   Description: Searches for a product by its name.
     *   Query Parameters: `name`
-*   **DELETE** `/products/{id}`
+*   **DELETE** `https://ecommerce-dal.onrender.com/products/{id}`
     *   Description: Deletes a product by its ID.
 
-*   **POST** `/products`
+*   **POST** `https://ecommerce-dal.onrender.com/products`
     *   Description: Adds a new product and links it to a category.
     *   Request Body (Raw JSON):
         ```json
@@ -139,7 +155,7 @@ Base Path: `/products`
         }
         ```
 
-*   **PUT** `/products/{id}`
+*   **PUT** `https://ecommerce-dal.onrender.com/products/{id}`
     *   Description: Updates an existing product's details.
     *   Request Body (Raw JSON):
         ```json
@@ -153,20 +169,20 @@ Base Path: `/products`
 
 ### 4. Orders API
 
-Base Path: `/orders`
+Base Path: `https://ecommerce-dal.onrender.com/orders`
 
-*   **GET** `/orders`
+*   **GET** `https://ecommerce-dal.onrender.com/orders`
     *   Description: Retrieves a paginated list of orders.
     *   Query Parameters: `page` (default: 0), `size` (default: 5)
-*   **GET** `/orders/sort`
+*   **GET** `https://ecommerce-dal.onrender.com/orders/sort`
     *   Description: Retrieves a sorted and paginated list of orders.
     *   Query Parameters: `page` (default: 0), `size` (default: 5), `field` (default: "id"), `direction` (default: "asc")
-*   **GET** `/orders/{id}`
+*   **GET** `https://ecommerce-dal.onrender.com/orders/{id}`
     *   Description: Retrieves a specific order by its ID.
-*   **DELETE** `/orders/{id}`
+*   **DELETE** `https://ecommerce-dal.onrender.com/orders/{id}`
     *   Description: Deletes an order by its ID.
 
-*   **POST** `/orders`
+*   **POST** `https://ecommerce-dal.onrender.com/orders`
     *   Description: Creates a new order for a user with multiple products and their specific quantities.
     *   Request Body (Raw JSON):
         ```json
@@ -180,7 +196,7 @@ Base Path: `/orders`
         ```
         *(In `productQuantities`, the key is the Product ID, and the value is the quantity ordered).*
 
-*   **PUT** `/orders/{id}`
+*   **PUT** `https://ecommerce-dal.onrender.com/orders/{id}`
     *   Description: Updates the user ID associated with an order.
     *   Request Body (Raw JSON):
         ```json
@@ -191,20 +207,20 @@ Base Path: `/orders`
 
 ### 5. Carts API
 
-Base Path: `/carts`
+Base Path: `https://ecommerce-dal.onrender.com/carts`
 
-*   **GET** `/carts`
+*   **GET** `https://ecommerce-dal.onrender.com/carts`
     *   Description: Retrieves a paginated list of shopping carts.
     *   Query Parameters: `page` (default: 0), `size` (default: 5)
-*   **GET** `/carts/sort`
+*   **GET** `https://ecommerce-dal.onrender.com/carts/sort`
     *   Description: Retrieves a sorted and paginated list of shopping carts.
     *   Query Parameters: `page` (default: 0), `size` (default: 5), `field` (default: "id"), `direction` (default: "asc")
-*   **GET** `/carts/{id}`
+*   **GET** `https://ecommerce-dal.onrender.com/carts/{id}`
     *   Description: Retrieves a specific cart by its ID.
-*   **DELETE** `/carts/{id}`
+*   **DELETE** `https://ecommerce-dal.onrender.com/carts/{id}`
     *   Description: Deletes a cart by its ID.
 
-*   **POST** `/carts`
+*   **POST** `https://ecommerce-dal.onrender.com/carts`
     *   Description: Creates a new cart for a user containing a list of products.
     *   Request Body (Raw JSON):
         ```json
@@ -214,7 +230,7 @@ Base Path: `/carts`
         }
         ```
 
-*   **PUT** `/carts/{id}`
+*   **PUT** `https://ecommerce-dal.onrender.com/carts/{id}`
     *   Description: Updates cart references.
     *   Request Body (Raw JSON):
         ```json
