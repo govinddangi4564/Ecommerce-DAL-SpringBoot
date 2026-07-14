@@ -5,6 +5,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.govind.Ecommerce_DAL.Exception.ResourceNotFound;
 import com.govind.Ecommerce_DAL.entity.User;
 import com.govind.Ecommerce_DAL.repository.UserRepository;
 
@@ -29,5 +30,11 @@ public class UserService {
 	public Page<User> readAll(int page, int size) {
 		Pageable pageable = PageRequest.of(page, size);
 		return userRepo.findAll(pageable);
+	}
+
+	// DELETE
+	public void deleteUser(Long id) {
+		User u = userRepo.findById(id).orElseThrow(() -> new ResourceNotFound("User not found"));
+		userRepo.delete(u);
 	}
 }

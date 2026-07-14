@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.govind.Ecommerce_DAL.Exception.ResourceNotFound;
 import com.govind.Ecommerce_DAL.entity.Order;
 import com.govind.Ecommerce_DAL.entity.OrderItem;
 import com.govind.Ecommerce_DAL.entity.Product;
@@ -33,7 +34,7 @@ public class OrderService {
 
 	@Transactional
 	public Long createOrder(Long userId, Map<Long, Integer> productQuantities) {
-		User user = userRepo.findById(userId).orElseThrow(() -> new RuntimeException("User not Found"));
+		User user = userRepo.findById(userId).orElseThrow(() -> new ResourceNotFound("User not found"));
 
 		Order order = new Order();
 		order.setUser(user);
@@ -44,7 +45,7 @@ public class OrderService {
 		for (Map.Entry<Long, Integer> entry : productQuantities.entrySet()) {
 
 			Product product = productRepo.findById(entry.getKey())
-					.orElseThrow(() -> new RuntimeException("Product not found"));
+					.orElseThrow(() -> new ResourceNotFound("User not found"));
 
 			OrderItem item = new OrderItem();
 

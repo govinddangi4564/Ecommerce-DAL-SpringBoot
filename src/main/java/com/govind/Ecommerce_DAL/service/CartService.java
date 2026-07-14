@@ -7,6 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.govind.Ecommerce_DAL.Exception.ResourceNotFound;
 import com.govind.Ecommerce_DAL.entity.Cart;
 import com.govind.Ecommerce_DAL.entity.Product;
 import com.govind.Ecommerce_DAL.entity.User;
@@ -27,17 +28,16 @@ public class CartService {
 	// INSERT
 	public Cart createCart(Long userId, List<Long> productIds) {
 
-	    User user = userRepo.findById(userId)
-	            .orElseThrow(() -> new RuntimeException("User not found"));
+		User user = userRepo.findById(userId).orElseThrow(() -> new ResourceNotFound("User not found"));
 
-	    List<Product> products = productRepo.findAllById(productIds);
+		List<Product> products = productRepo.findAllById(productIds);
 
-	    Cart cart = new Cart();
+		Cart cart = new Cart();
 
-	    cart.setUser(user);
-	    cart.setProducts(products);
+		cart.setUser(user);
+		cart.setProducts(products);
 
-	    return cartRepo.save(cart);
+		return cartRepo.save(cart);
 	}
 
 	// READ
@@ -46,4 +46,7 @@ public class CartService {
 
 		return cartRepo.findAll(pageable);
 	}
+
+	// DELETE
+
 }

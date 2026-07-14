@@ -5,6 +5,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.govind.Ecommerce_DAL.Exception.ResourceNotFound;
 import com.govind.Ecommerce_DAL.entity.Category;
 import com.govind.Ecommerce_DAL.entity.Product;
 import com.govind.Ecommerce_DAL.repository.CategoryRepository;
@@ -22,8 +23,7 @@ public class ProductService {
 
 	// INSERT
 	public Product addProduct(Long categoryId, Product product) {
-		Category category = categoryRepo.findById(categoryId)
-				.orElseThrow(() -> new RuntimeException("Category not found."));
+		Category category = categoryRepo.findById(categoryId).orElseThrow(() -> new ResourceNotFound("User not found"));
 
 		product.setCategory(category);
 
