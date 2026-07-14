@@ -35,8 +35,8 @@ You can test the live endpoints directly in your browser or using tools like Pos
 - View all Users: [https://ecommerce-dal.onrender.com/users](https://ecommerce-dal.onrender.com/users)
 - View all Products: [https://ecommerce-dal.onrender.com/products](https://ecommerce-dal.onrender.com/products)
 - View all Categories: [https://ecommerce-dal.onrender.com/categories](https://ecommerce-dal.onrender.com/categories)
-- View all Orders: [https://ecommerce-dal.onrender.com/users/orders](https://ecommerce-dal.onrender.com/users/orders)
-- View all Carts: [https://ecommerce-dal.onrender.com/users/carts](https://ecommerce-dal.onrender.com/users/carts)
+- View all Orders: [https://ecommerce-dal.onrender.com/orders](https://ecommerce-dal.onrender.com/orders)
+- View all Carts: [https://ecommerce-dal.onrender.com/carts](https://ecommerce-dal.onrender.com/carts)
 
 ## API Endpoints Documentation
 
