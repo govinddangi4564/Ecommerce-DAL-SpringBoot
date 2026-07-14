@@ -72,7 +72,12 @@ Base Path: `https://ecommerce-dal.onrender.com/users`
         {
           "username": "govinddangi",
           "password": "securepassword123",
-          "email": "govind@example.com"
+          "email": "govind@example.com",
+          "customerProfile": {
+            "name": "Govind Dangi",
+            "address": "123 Main St, City, Country",
+            "phoneNumber": "9876543210"
+          }
         }
         ```
 
@@ -194,7 +199,7 @@ Base Path: `https://ecommerce-dal.onrender.com/orders`
           }
         }
         ```
-        *(In `productQuantities`, the key is the Product ID, and the value is the quantity ordered).*
+        *(Note: In `productQuantities`, the key is the Product ID, and the value is the quantity ordered. The backend will automatically generate the `order_items` data and associate it with the new order.)*
 
 *   **PUT** `https://ecommerce-dal.onrender.com/orders/{id}`
     *   Description: Updates the user ID associated with an order.
