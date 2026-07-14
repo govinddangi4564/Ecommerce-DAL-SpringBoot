@@ -76,8 +76,7 @@ public class UserService {
 
 	// Search by Name, Address, Phone
 	public List<User> search(String query) {
-		return userRepo.findByNameContainingIgnoreCaseOrPhoneContainingIgnoreCaseOrAddressContainingIgnoreCase(query,
-				query, query);
+		return userRepo.searchUsers(query);
 	}
 
 	// Find by username
