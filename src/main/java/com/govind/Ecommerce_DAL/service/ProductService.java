@@ -3,6 +3,7 @@ package com.govind.Ecommerce_DAL.service;
 import java.util.List;
 
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -51,6 +52,7 @@ public class ProductService {
 	}
 
 	// UPDATE
+	@CachePut(value = "product", key = "#id")
 	public Product updateProduct(Long id, ProductUpdateRequest dto) {
 		Product product = productRepo.findById(id).orElseThrow(() -> new ResourceNotFound("Product not found."));
 

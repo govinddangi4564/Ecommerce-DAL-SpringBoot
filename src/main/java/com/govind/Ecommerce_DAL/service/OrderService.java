@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -82,6 +83,7 @@ public class OrderService {
 	}
 
 	// UPDATE
+	@CachePut(value = "order", key = "#id")
 	public Order updateOrderDetails(Long id, OrderUpdateRequest dto) {
 		Order order = orderRepo.findById(id).orElseThrow(() -> new ResourceNotFound("Order not found."));
 
